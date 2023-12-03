@@ -1,3 +1,3 @@
 # Day 02
 
-To be implemented
+Very simple today, easier than day 1 actually.
