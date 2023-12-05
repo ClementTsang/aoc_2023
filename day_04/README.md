@@ -1,3 +1,3 @@
 # Day 04
 
-To be implemented
+Not much to say today, fairly straightforward.
