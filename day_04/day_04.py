@@ -1,8 +1,6 @@
 #!/bin/python3
 
-import copy
 import sys
-from collections import defaultdict
 from typing import List
 
 FILE = sys.argv[1] if len(sys.argv) > 1 else "input.txt"
