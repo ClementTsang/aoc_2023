@@ -17,18 +17,26 @@ def read_lines_to_list() -> List[str]:
     return lines
 
 
+def build_and_rev_sequences(start: List[int]) -> List[List[int]]:
+    """Builds the sequences, then reverses them."""
+
+    sequences = [start]
+    while any(val != 0 for val in sequences[-1]):
+        curr = sequences[-1]
+        next_sequence = [b - a for (a, b) in pairwise(curr)]
+        sequences.append(next_sequence)
+
+    sequences.reverse()
+
+    return sequences
+
+
 def part_one():
     lines = read_lines_to_list()
     answer = 0
 
     for line in lines:
-        sequences = [line[:]]
-        while any(val != 0 for val in sequences[-1]):
-            curr = sequences[-1]
-            next_sequence = [b - a for (a, b) in pairwise(curr)]
-            sequences.append(next_sequence)
-
-        sequences.reverse()
+        sequences = build_and_rev_sequences(line[:])
         sequences[0].append(0)
 
         for prev, curr in pairwise(sequences):
@@ -44,14 +52,8 @@ def part_two():
     answer = 0
 
     for line in lines:
-        sequences = [line[:]]
-        while any(val != 0 for val in sequences[-1]):
-            curr = sequences[-1]
-            next_sequence = [b - a for (a, b) in pairwise(curr)]
-            sequences.append(next_sequence)
-
-        sequences.reverse()
-        sequences[0].append(0)
+        sequences = build_and_rev_sequences(line[:])
+        sequences[0].append(0)  # Can just stick it at the end because they're all 0 anyways.
 
         for prev, curr in pairwise(sequences):
             curr.insert(0, curr[0] - prev[0])
