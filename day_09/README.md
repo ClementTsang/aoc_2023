@@ -1,3 +1,3 @@
 # Day 09
 
-To be implemented
+Well that was easy.
