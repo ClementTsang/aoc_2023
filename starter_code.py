@@ -4,7 +4,7 @@ import sys
 from typing import List
 
 FILE = sys.argv[1] if len(sys.argv) > 1 else "input.txt"
-
+sys.setrecursionlimit(100000)
 
 def read_lines_to_list() -> List[str]:
     lines: List[str] = []
