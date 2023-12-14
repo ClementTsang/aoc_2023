@@ -1,3 +1,3 @@
 # Day 14
 
-To be implemented
+Overslept on this one. Not too hard otherwise, getting the cycle index was annoying though.
