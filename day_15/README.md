@@ -1,3 +1,3 @@
 # Day 15
 
-To be implemented
+Super chill today, just follow the spec.
