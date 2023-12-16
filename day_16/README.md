@@ -1,3 +1,3 @@
 # Day 16
 
-To be implemented
+Kinda straightforward, just tedious debugging.
