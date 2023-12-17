@@ -163,7 +163,7 @@ def part_two():
                 for row in range(height):
                     answer = max(answer, energy(maze, (row, width - 1, direction)))
 
-    print(f"Part 1: {answer}")
+    print(f"Part 2: {answer}")
 
 
 part_one()
