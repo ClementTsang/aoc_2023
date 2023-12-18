@@ -23,75 +23,38 @@ def part_one():
     answer = 0
 
     curr = (0, 0)
+    edges = []
 
-    pits = defaultdict(int)
-    pits[curr] = 1
     for direction, amount, _colour in lines:
-        if direction == "D":
-            for _ in range(amount):
-                curr = (curr[0] + 1, curr[1])
-                pits[curr] += 1
-        elif direction == "U":
-            for _ in range(amount):
-                curr = (curr[0] - 1, curr[1])
-                pits[curr] += 1
+        prev = curr
+        if direction == "R":
+            # Right
+            curr = curr[0], curr[1] + amount
+        elif direction == "D":
+            # Down
+            curr = curr[0] + amount, curr[1]
         elif direction == "L":
-            for _ in range(amount):
-                curr = (curr[0], curr[1] - 1)
-                pits[curr] += 1
-        elif direction == "R":
-            for _ in range(amount):
-                curr = (curr[0], curr[1] + 1)
-                pits[curr] += 1
+            # Left
+            curr = curr[0], curr[1] - amount
+        elif direction == "U":
+            # Up
+            curr = curr[0] - amount, curr[1]
+        edges.append((prev, curr))
+        answer += amount
+    edges.append((curr, (0, 0)))
 
-    y_offset = abs(min([y for (y, _x) in pits.keys()])) + 25
-    x_offset = abs(min([x for (_y, x) in pits.keys()])) + 25
+    area = 0
 
-    height = max([y for (y, _x) in pits.keys()]) + y_offset + 50
-    width = max([x for (_y, x) in pits.keys()]) + x_offset + 50
+    # Shoelace
+    for edge in edges:
+        (a, b) = edge
+        area += a[1] * b[0] - a[0] * b[1]
+    area = int(abs(area) / 2)
 
-    board = []
-    for _ in range(height):
-        board.append([])
-        for _ in range(width):
-            board[-1].append(0)
+    # Pick's theorem
+    square_area = int(area - answer / 2 + 1)
 
-    for coord, depth in pits.items():
-        (y, x) = (coord[0] + y_offset, coord[1] + x_offset)
-        # print(y, x)
-        board[y][x] = depth
-
-    dots_left = 0
-    for row in range(height):
-        for col in range(width):
-            if board[row][col] > 0:
-                # print("#", end="")
-                answer += 1
-            else:
-                # print(".", end="")
-                dots_left += 1
-        # print("")
-
-    # Flood fill.
-    visited = {(0, 0)}
-    queue = [(0, 0)]
-    while queue:
-        (y, x) = queue.pop()
-        for neighbour in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
-            (new_y, new_x) = (y + neighbour[0], x + neighbour[1])
-            if (
-                new_y >= 0
-                and new_x >= 0
-                and new_y < height
-                and new_x < width
-                and (new_y, new_x) not in visited
-                and board[new_y][new_x] == 0
-            ):
-                visited.add((new_y, new_x))
-                queue.append((new_y, new_x))
-
-    answer += dots_left - len(visited)
-
+    answer += square_area
     print(f"Part 1: {answer}")
 
 
@@ -100,8 +63,8 @@ def part_two():
     answer = 0
 
     curr = (0, 0)
-
     edges = set()
+
     for _, _, colour in lines:
         amount = int(colour[0:-1], 16)
         direction = int(colour[-1])
@@ -120,13 +83,20 @@ def part_two():
             # Up
             curr = curr[0] - amount, curr[1]
         edges.add((prev, curr))
+        answer += amount
 
+    area = 0
+
+    # Shoelace
     for edge in edges:
         (a, b) = edge
-        answer += a[0] * b[1] - a[1] * b[0]
+        area += a[1] * b[0] - a[0] * b[1]
+    area = int(abs(area) / 2)
 
-    answer /= 2
-    answer = abs(int(answer))
+    # Pick's theorem
+    square_area = int(area - answer / 2 + 1)
+
+    answer += square_area
 
     print(f"Part 2: {answer}")
 

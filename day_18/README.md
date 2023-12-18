@@ -1,3 +1,3 @@
 # Day 18
 
-To be implemented
+Good learning opportunity for Pick's theorem and shoelace theorem.
