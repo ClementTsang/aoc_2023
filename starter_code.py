@@ -1,10 +1,11 @@
 #!/bin/python3
 
 import sys
-from typing import List
+from typing import List, Tuple
 
-FILE = sys.argv[1] if len(sys.argv) > 1 else "input.txt"
 sys.setrecursionlimit(100000)
+FILE = sys.argv[1] if len(sys.argv) > 1 else "input.txt"
+
 
 def read_lines_to_list() -> List[str]:
     lines: List[str] = []
