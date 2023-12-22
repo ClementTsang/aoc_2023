@@ -1,3 +1,3 @@
 # Day 20
 
-To be implemented
+Tricky but not too bad.
