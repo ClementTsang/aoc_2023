@@ -31,20 +31,14 @@ def can_remove_1(brick, above, below):
     return True
 
 
-def can_remove_2(brick, above, below):
-    will_fall = set()
-
-    def recurse(brick):
-        if brick in will_fall:
-            return
-        else:
-            will_fall.add(brick)
-            for brick_above in above[brick]:
-                if len(below[brick_above] - will_fall) == 0:
-                    recurse(brick_above)
-
-    recurse(brick)
-    return len(will_fall) - 1
+def can_remove_2(brick, above, below, falling):
+    if brick in falling:
+        return
+    else:
+        falling.add(brick)
+        for brick_above in above[brick]:
+            if len(below[brick_above] - falling) == 0:
+                can_remove_2(brick_above, above, below, falling)
 
 
 def solve():
@@ -98,7 +92,9 @@ def solve():
     print(f"Part 1: {part_one}")
 
     for brick in bricks:
-        part_two += can_remove_2(brick, bricks_above, bricks_below)
+        will_fall = set()
+        can_remove_2(brick, bricks_above, bricks_below, will_fall)
+        part_two += len(will_fall) - 1
 
     print(f"Part 2: {part_two}")
 
