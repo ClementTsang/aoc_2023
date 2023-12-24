@@ -68,13 +68,15 @@ def part_two():
     answer = 0
 
     solver = z3.Solver()
-    x, y, z, vx, vy, vz = [z3.Int(var) for var in ["x", "y", "z", "vx", "vy", "vz"]]
+    x, y, z, vx, vy, vz = [
+        z3.BitVec(var, 64) for var in ["x", "y", "z", "vx", "vy", "vz"]
+    ]
 
     # 4 unknowns, so we just need 4 equations... I think.
     for itx in range(4):
         (cpx, cpy, cpz), (cvx, cvy, cvz) = lines[itx]
 
-        t = z3.Int(f"t{itx}")
+        t = z3.BitVec(f"t{itx}", 64)
         solver.add(t >= 0)
         solver.add(x + vx * t == cpx + cvx * t)
         solver.add(y + vy * t == cpy + cvy * t)
