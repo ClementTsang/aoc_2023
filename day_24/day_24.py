@@ -14,9 +14,7 @@ def read_lines_to_list() -> List[str]:
         for line in f:
             line = line.strip()
             lines.append(
-                tuple(
-                    tuple([float(a) for a in s.split(", ")]) for s in line.split(" @ ")
-                )
+                tuple(tuple([int(a) for a in s.split(", ")]) for s in line.split(" @ "))
             )
 
     return lines
