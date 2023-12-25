@@ -1,3 +1,3 @@
 # Day 25
 
-To be implemented
+Merry Christmas and happy holidays!
